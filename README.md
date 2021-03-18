@@ -1,7 +1,7 @@
 
 # Triply Platform
 
-An Xpress-Python implementation of the model presented on the paper "A many - to - many assignment game and stable outcome algorithm to evaluate collaborative Mobility - as - a - Service platforms", by Theodoros P. Pantelidis , Joseph Y.J. Chow , Saeid Rasulkhani.
+An Xpress-Python implementation of the model presented on the paper "A many - to - many assignment game and stable outcome algorithm to evaluate collaborative Mobility - as - a - Service platforms", by Theodoros P. Pantelidis , Joseph Y.J. Chow , Saeid Rasulkhani.
 
 ## Prerequisites
 
