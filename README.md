@@ -5,7 +5,7 @@ An Xpress-Python implementation of the model presented on the paper "A many - to
 
 ## Prerequisites
 
-+ FICO Xpress - Mosel Language
++ FICO Xpress - Mosel
 + Python (+Networkx)
 
 ## Usage
