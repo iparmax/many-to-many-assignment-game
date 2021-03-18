@@ -16,15 +16,15 @@ The model's only input is the optimal_flow.dat file, which basically replicates 
 
 ### Main
 
-This is a two stage model. Firsly, the optimal_flow.mos file is executed where the optimal assignment is located for this network allowing multimodality for the selected routes. Then the results of the LP, as well as the dual of the link capacity constraint are fed to the constraint_generation.py to generate constaints for the stable outcome problem using core allocations to reduce dimensionality of the following LP. Along with the constraints the results from the MILP are stored in the stability.dat. Then using stability.dat the model stability.mos can be executed twice. Once, maximizing utility surplus and once maximizing income for operators of the game.
+This is a two stage model. Firsly, the optimal_flow.mos file is executed where the optimal assignment is located for this network allowing multimodality for the selected routes. Then the results of the LP, as well as the dual of the link capacity constraint are fed to the constraint_generation.py to generate constaints for the stable outcome problem using core allocations to reduce dimensionality of the following LP. Along with the constraints the results from the MILP are stored in the stability.dat. Using stability.dat the model stability.mos can be executed twice, once for maximizing utility surplus and once for maximizing income for the operators of the game.
 
 ### Outputs
 
-The results are the boundaries for pricing and utility suprlus that maintain stability on the given network. When maximizing surplus the user-optimal pricing is determined, while when maximizing income the operator optimal is located. It's possible that the problem is infeasible as stasbility is not generally guaranteed.
+The results are the boundaries for pricing and utility suprlus that maintain stability on the given network. When maximizing surplus the user-optimal pricing is determined and when maximizing income the operator optimal is determined. It's possible that the problem is infeasible as stability is not generally guaranteed.
 
 ### Further work
 
-There is work to be done in the passing of the duals to the model, as for the moment they are done manually
+There is work to be done in the passing of the duals to the model, as for the moment they are passed manually.
 
 
 ## Authors
