@@ -1,0 +1,10 @@
+Operator Optimal: 
+Path 1 | Flow 1000 | Link Operated by A | Price 13.0 
+Path 3 | Flow 300 | Link Operated by D | Price 10.0 
+Path 6 | Flow 200 | Link Operated by A | Price 0.0 
+Path 6 | Flow 200 | Link Operated by C | Price 14.0 
+Seller Optimal 
+Path 1 | Flow 1000 | Link Operated by A | Price 0.0 
+Path 3 | Flow 300 | Link Operated by D | Price 0.67 
+Path 6 | Flow 200 | Link Operated by A | Price 3.67 
+Path 6 | Flow 200 | Link Operated by C | Price 1.0 

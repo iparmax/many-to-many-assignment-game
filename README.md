@@ -20,8 +20,7 @@ This is a two stage model. Firsly, the optimal_flow.mos file is executed where t
 
 ### Outputs
 
-The results are the boundaries for pricing and utility suprlus that maintain stability on the given network. When maximizing surplus the user-optimal pricing is determined and when maximizing income the operator optimal is determined. It's possible that the problem is infeasible as stability is not generally guaranteed.
-
+The results are the boundaries for pricing and utility suprlus that maintain stability on the given network. When maximizing surplus the user-optimal pricing is determined and when maximizing income the operator optimal is determined. It's possible that the problem is infeasible as stability is not generally guaranteed. The results are stored in a separate 'results.dat' file computed by results.py Python Script.
 ### Further work
 
 There is work to be done in the passing of the duals to the model, as for the moment they are passed manually.

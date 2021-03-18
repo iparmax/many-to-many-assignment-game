@@ -18,7 +18,8 @@
             "meta": {
                 "accessList": [
                     "tab17",
-                    "tab14"
+                    "tab14",
+                    "tab4"
                 ]
             },
             "name": "pane1",
@@ -40,12 +41,12 @@
                         "tooltip": "optimal_flow.mos - Stopped",
                         "output": {
                             "id": "output2319660",
-                            "width": 667,
+                            "width": 1566,
                             "height": 268,
                             "config": {
                                 "runner": "Mosel",
                                 "command": "optimal_flow.mos",
-                                "debug": true,
+                                "debug": false,
                                 "toolbar": true,
                                 "name": ""
                             }
@@ -59,8 +60,7 @@
                     "name": "tab17",
                     "path": "",
                     "className": [
-                        "tab17",
-                        "running"
+                        "tab17"
                     ],
                     "document": {
                         "changed": false,
@@ -68,52 +68,52 @@
                             "timestamp": 1616072745135
                         },
                         "filter": true,
-                        "title": "stability.mos - Running",
-                        "tooltip": "stability.mos - Running",
+                        "title": "stability.mos - Stopped",
+                        "tooltip": "stability.mos - Stopped",
                         "output": {
                             "id": "output9813965",
-                            "width": 667,
+                            "width": 1566,
                             "height": 268,
                             "config": {
                                 "runner": "Mosel",
                                 "command": "stability.mos",
-                                "debug": true,
+                                "debug": false,
                                 "toolbar": true,
                                 "name": ""
-                            },
-                            "running": {
-                                "pid": 6608,
-                                "name": "output9813965",
-                                "running": 2,
-                                "runner": [
-                                    {
-                                        "caption": "Mosel",
-                                        "cmd": [
-                                            "C:\\Program Files\\xpressmp\\workbench\\.c9\\node.exe",
-                                            "C:\\Program Files\\xpressmp\\workbench\\.c9\\node_modules\\mosel-runner\\bin\\mosel-runner",
-                                            "run",
-                                            "${debug?--debug=6167}",
-                                            "--basedir",
-                                            "$project_path",
-                                            "$file",
-                                            "--stack-trace=20",
-                                            "$args"
-                                        ],
-                                        "cmdCleanup": [
-                                            "true"
-                                        ],
-                                        "debugger": "mosel",
-                                        "debugport": 6167,
-                                        "selector": "\\.mos$",
-                                        "$builtin": true
-                                    }
-                                ],
-                                "debug": true
                             }
                         }
                     },
                     "editorType": "output",
                     "active": true
+                },
+                {
+                    "type": "tab",
+                    "name": "tab4",
+                    "path": "",
+                    "className": [
+                        "tab4"
+                    ],
+                    "document": {
+                        "changed": false,
+                        "meta": {
+                            "timestamp": 1616083133260
+                        },
+                        "filter": true,
+                        "title": "Compile - Idle",
+                        "tooltip": "Compile - Idle",
+                        "output": {
+                            "id": "build",
+                            "width": 1566,
+                            "height": 268,
+                            "config": {
+                                "name": "Compile",
+                                "toolbar": false,
+                                "command": ""
+                            }
+                        }
+                    },
+                    "editorType": "output",
+                    "active": false
                 }
             ],
             "skin": "editor_tab",
@@ -127,18 +127,18 @@
             "@acestatus": 1,
             "@base-step-wizard": 2,
             "@divider": 5,
-            "@document": 31,
+            "@document": 48,
             "@editorswitch": 1,
-            "@fico.mosel.debugger.array.model": 44,
+            "@fico.mosel.debugger.array.model": 1,
             "@fico.vdl.attributes-panel": 1,
             "@fico.vdl.toolbox-panel": 1,
             "@form": 4,
             "@menu": 6,
             "@menuitem": 15,
             "@pane": 2,
-            "@session": 31,
-            "@tab": 30,
-            "@undoManager": 31,
+            "@session": 48,
+            "@tab": 46,
+            "@undoManager": 48,
             "@welcome": 1
         }
     },
@@ -152,10 +152,10 @@
     "local": {
         "window": {
             "@fullscreen": false,
-            "@maximized": false,
+            "@maximized": true,
             "@minimized": false,
-            "@position": "210:80",
-            "@size": "1200:920"
+            "@position": "317:22",
+            "@size": "1184:885"
         }
     },
     "menus": {
@@ -165,17 +165,18 @@
         "@installed": true
     },
     "od": {
-        "@last-run-config": "path:optimal_flow.mos"
+        "@last-run-config": "path:stability.mos"
     },
     "panecycle": {
         "json()": [
-            "tab20",
+            "tab45",
             "tab17"
         ]
     },
     "panels": {
         "@active-left": "tree",
-        "@active-right": "debugger",
+        "@active-right": "none",
+        "@width-left": 302,
         "@width-right": 301,
         "commands.panel": {
             "@enabled": "false",
@@ -255,56 +256,34 @@
     },
     "tabs": {
         "json()": {
-            "focus": "/optimal_flow.mos",
+            "focus": "/README.md",
             "meta": {
                 "accessList": [
-                    "tab20",
-                    "tab28"
+                    "tab45"
                 ]
             },
             "name": "pane0",
             "nodes": [
                 {
                     "type": "tab",
-                    "name": "tab20",
-                    "path": "/optimal_flow.mos",
+                    "name": "tab45",
+                    "path": "/README.md",
                     "className": [
-                        "tab20",
+                        "tab45",
                         "focus"
                     ],
                     "document": {
                         "changed": false,
                         "meta": {
-                            "ignoreState": 0,
-                            "timestamp": 1616079763964
+                            "timestamp": 1616087174634
                         },
                         "filter": true,
-                        "title": "optimal_flow.mos",
-                        "tooltip": "/optimal_flow.mos",
+                        "title": "README.md",
+                        "tooltip": "/README.md",
                         "ace": {}
                     },
                     "editorType": "ace",
                     "active": true
-                },
-                {
-                    "type": "tab",
-                    "name": "tab28",
-                    "path": "/stability.mos",
-                    "className": [
-                        "tab28"
-                    ],
-                    "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1616079565513
-                        },
-                        "filter": true,
-                        "title": "stability.mos",
-                        "tooltip": "/stability.mos",
-                        "ace": {}
-                    },
-                    "editorType": "ace",
-                    "active": false
                 }
             ],
             "skin": "editor_tab",
@@ -314,7 +293,7 @@
     },
     "tree_selection": {
         "json()": [
-            "/constraint_generation.py"
+            "/README.md"
         ]
     },
     "welcome": {

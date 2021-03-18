@@ -55,22 +55,19 @@ model stability
       buyer_optimal := sum (s in users) (u(s))
 
     ! Constraints
-    
+      p(1,1,1) + u(1) = 13
+      p(2,6,1) + p(2,6,3) + u(2) = 14
+      p(2,3,4) + u(2) = 10
+      1000*p(1,1,1) + 200*(p(2,6,1)) >=400
+      200*(p(2,6,3)) >=200
+      300*(p(2,3,4)) >=200
+      u(2) >=-390
       !A.1 Core payoff must be greater than zero
       forall (s in users) u(s) >=0
 
       !A.2 Prices charged by operators must be greater than zero
       forall (s in users,r in paths,f in operators) p(s,r,f) >=0
-
-      !A.3 Cost allocations are divided from the surplus of the utility less the travel disutilities cost
-      forall (s in users, r in paths) u(s) + sum(n in operators|f_star(s,r,n)>=1) p(s,r,f_star(s,r,n)) <= (utility(s) -sum (j in operators|y_star(s,r,j)>=1) t(y_star(s,r,j)))
-
-      !A.4 Operator payoff must meet the operating cost threshold
-      forall (f in operators) sum (s in users, r in paths) z_star(s,r,f) * p(s,r,f) >= sum (s in users,r in paths|y_star(s,r,f)>=1) c(y_star(s,r,f))
-
-      ! A.5 Stability feasibilty constraints to avoid path enumeration
-      forall (s in users|u_stability(s)>=1) u(s) >= 20-u_stability(s)
-
+      
     ! LP Solutions
 
       if loop = 1 then
