@@ -1,0 +1,124 @@
+model optimal_flow
+
+  uses "mmxprs"
+  uses "python3"
+
+  declarations
+
+    ! Sets
+    users : set of integer
+    nodes : set of integer
+    links : set of integer
+    nodes_idx : set of integer
+    operators : set of integer
+
+  end-declarations
+
+  initialisations from  "optimal_flow.dat"
+    users nodes links nodes_idx operators
+  end-initialisations
+
+  ! Make sets Static
+  finalise(users)
+  finalise(nodes)
+  finalise(links)
+  finalise(nodes_idx)
+  finalise(operators)
+
+  declarations
+
+    ! Variables
+    origin : array(links) of integer
+    destination : array(links) of integer
+    t : array(links) of integer
+    c : array(links) of integer
+    w : array(links) of integer
+    d: array (users) of integer
+    O: array (users) of integer
+    D: array (users) of integer
+    N: array (nodes) of integer
+    utility : array(users) of integer
+    N_plus: array(nodes_idx,nodes_idx) of integer
+    N_minus: array(nodes_idx,nodes_idx) of integer
+    links_network: array(nodes_idx,nodes_idx) of integer
+    dual: array(nodes_idx,nodes_idx) of integer
+    operators_network: array(operators,operators) of integer
+
+    ! Decision Variables
+    x: array(nodes_idx,nodes_idx,users) of mpvar
+    y: array(nodes_idx,nodes_idx) of mpvar
+
+  end-declarations
+
+  initialisations from  "optimal_flow.dat"
+    origin destination t c w d O D N N_plus N_minus utility links_network operators_network users dual
+  end-initialisations
+
+  finalize(users)
+
+  ! Objective Function
+
+    travel_cost := (sum (i in links,s in users) (t(i)*x(origin(i),destination(i),s)) +sum (i in links) y(origin(i),destination(i))*c(i))
+
+  ! Constraints
+
+    !A.1 Capacity constraint for all links in the network
+    forall (i in links) (sum (s in users) x(origin(i),destination(i),s)  <= w(i)*y(origin(i),destination(i)))
+
+    !A.2 Non negativity constraint for flow
+    forall (i in links, s in users) x(origin(i),destination(i),s) >= 0
+
+    !A.3 Binary initialization as indicator for active link
+    forall (i in 1..11) (y(origin(i),destination(i)) is_binary)
+
+    !A.4 Feasibilty of flow in the network
+    forall (s in users) do
+      forall (n in nodes) do
+        if N(n) = O(s) then
+          sum (i in nodes_idx | N_plus(N(n),i)>=1) (x(N(n),N_plus(N(n),i),s)) - sum (i in nodes_idx | N_minus(N(n),i)>=1) (x(N_minus(N(n),i),N(n),s)) = d(s)
+        elif N(n) = D(s) then
+          sum (i in nodes_idx | N_plus(N(n),i)>=1) (x(N(n),N_plus(N(n),i),s)) - sum (i in nodes_idx | N_minus(N(n),i)>=1) (x(N_minus(N(n),i),N(n),s)) = -d(s)
+        else
+          sum (i in nodes_idx | N_plus(N(n),i)>=1) (x(N(n),N_plus(N(n),i),s)) - sum (i in nodes_idx | N_minus(N(n),i)>=1) (x(N_minus(N(n),i),N(n),s)) = 0
+        end-if
+      end-do
+    end-do
+
+    minimise(travel_cost)
+
+  ! Optimality Flag
+
+    if (getprobstat=XPRS_OPT) then
+      writeln("Solved.")
+    else
+      writeln("Not solved to optimality")
+    end-if
+
+  ! Feeding results to Python script
+  idx:=1
+  forall (i in links) do
+    forall (s in users) do
+      flow(idx,s) := getsol(x(origin(i),destination(i),s))
+    end-do
+    idx := idx + 1
+  end-do
+
+  idx := 1
+  forall(q in users) do
+    forall (i in nodes_idx,j in nodes_idx) do
+      if getsol(x(i,j,q)) >= 1 then
+        r(idx) := i
+        r(idx + 1) := j
+        idx := idx + 2
+      end-if
+    end-do
+  end-do
+
+
+  initializations to "python:"
+    r O D t c flow utility links_network operators_network dual
+  end-initializations
+
+  pyrun("constraint_generation.py")
+
+end-model

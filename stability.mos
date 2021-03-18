@@ -1,0 +1,84 @@
+model stability
+
+  uses "mmxprs"
+
+  declarations
+
+    ! Sets
+    users : set of integer
+    paths : set of integer
+    links : set of integer
+    operators : set of integer
+
+  end-declarations
+
+  initialisations from  "stability.dat"
+    users paths links operators
+  end-initialisations
+
+  ! Make sets Static
+  finalise(users)
+  finalise(paths)
+  finalise(links)
+  finalise(operators)
+
+  declarations
+
+    ! Sets
+    t : array(links) of integer
+    c : array(links) of integer
+    f_star : array(users,paths,operators) of integer
+    z_star : array(users,paths,operators) of integer
+    y_star : array(users,paths,operators) of integer
+    u_stability : array(users) of integer
+    utility : array(users) of integer
+
+    ! Decision Variables
+    u:array(users) of mpvar
+    p:array(users,paths,operators) of mpvar
+
+  end-declarations
+
+  initialisations from  "stability.dat"
+    t c f_star y_star z_star u_stability utility
+  end-initialisations
+
+  ! Objective Functions
+
+    ! Seller - Optimal
+    seller_optimal := sum (s in users,r in paths,f in operators) p(s,r,f)*z_star(s,r,f)
+
+    ! Buyer - Optimal
+    buyer_optimal := sum (s in users) (u(s))
+
+  ! Constraints
+
+    !A.1 Core payoff must be greater than zero
+    forall (s in users) u(s) >=0
+
+    !A.2 Prices charged by operators must be greater than zero
+    forall (s in users,r in paths,f in operators) p(s,r,f) >=0
+
+    !A.3 Cost allocations are divided from the surplus of the utility less the travel disutilities cost
+    forall (s in users, r in paths) u(s) + sum(n in operators|f_star(s,r,n)>=1) p(s,r,f_star(s,r,n)) <= (utility(s) -sum (j in operators|y_star(s,r,j)>=1) t(y_star(s,r,j)))
+
+    !A.4 Operator payoff must meet the operating cost threshold
+    forall (f in operators) sum (s in users, r in paths) z_star(s,r,f) * p(s,r,f) >= sum (s in users,r in paths|y_star(s,r,f)>=1) c(y_star(s,r,f))
+
+    ! A.5 Stability feasibilty constraints to avoid path enumeration
+    forall (s in users|u_stability(s)>=1) u(s) >= 20-u_stability(s)
+
+  ! LP Solutions
+
+    !maximise(seller_optimal)
+    maximise(buyer_optimal)
+
+  ! Optimality Flag
+
+    if (getprobstat=XPRS_OPT) then
+      writeln("Solved.")
+    else
+      writeln("Not solved to optimality")
+    end-if
+
+end-model
